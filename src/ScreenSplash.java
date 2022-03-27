@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
@@ -14,84 +15,106 @@ public class ScreenSplash extends Thread {
 	private JPanel pScreenSplash;
 	private JLabel lbAppName;
 	private JLabel lbLoading;
+	private GridBagConstraints gbc;
 	private ImageIcon iconApp;
-	private Font font;
 
 	public void run() {
+		// Marco
+		frScreenSplash = new JFrame();
+		// Panel
+		pScreenSplash = new JPanel();
+		// Etiquetas
+		lbAppName = new JLabel("<html>ABC <br>Library</html>");
+		lbLoading = new JLabel("Loading");
+		// Estructura el layout
+		gbc = new GridBagConstraints();
+		
+		// Imagen escalada
+		iconApp = new ImageIcon(new ImageIcon("./resources/app_icon.png")
+				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		
+		// Crea la ventana de carga
 		createSplashScreen();
 	}
 
 	private void createSplashScreen() {
 		// Crea un nuevo marco
 		createFrame();
-		// Agrega el panel al marco
-		addPanelToFrame();
+		// Crea un nuevo panel
+		createPanel();
+		// Muestra el marco
+		frScreenSplash.setVisible(true);
 		// Cierra la ventana ("marco")
 		closeFrame();
 	}
 
 	private void createFrame() {
-		frScreenSplash = new JFrame();
-
 		frScreenSplash.setSize(600, 300);
+		// Cambia el icono del programa
+		frScreenSplash.setIconImage(iconApp.getImage());
 		// Centra la ventana
 		frScreenSplash.setLocationRelativeTo(null);
-		// Elimina la barra del título
+		// Elimina la barra del tï¿½tulo
 		frScreenSplash.setUndecorated(true);
 		// Apaga el programa una vez cerrada la ventana
 		frScreenSplash.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	private void addPanelToFrame() {
-		pScreenSplash = new JPanel();
-		
+	private void createPanel() {
 		// Agrega los elementos al panel
-		addElementsToPanel();
+		addLabelsToPanel();
 
 		// Tipo de layout
 		pScreenSplash.setLayout(new GridBagLayout());
 		pScreenSplash.setBackground(Color.decode("#B22222"));
 
-		// Agrega el pScreenSplash al marco
-		frScreenSplash.add(pScreenSplash);
-		// Muestra el marco
-		frScreenSplash.setVisible(true);
+		// Agrega el panel al marco
+		frScreenSplash.getContentPane().add(pScreenSplash);
 	}
 	
-	private void addElementsToPanel() {
-		// Fuente general
-		font = new Font("Times New Roman", font.PLAIN, 30);
-		// Crea los elementos
+	private void addLabelsToPanel() {
+		// Crea las etiquetas
 		createAppNameLabel();
-		
-		// Agrega los elementos al panel
-		pScreenSplash.add(lbAppName);		
+		createLoadingLabel();
 	}
 
 	private void createAppNameLabel() {
-		lbAppName = new JLabel("<html>ABC <br>Library</html>");
-		iconApp = new ImageIcon(".\\resources\\app_icon.png");
-		// Imagen escalada
-		iconApp = new ImageIcon(new ImageIcon(".\\resources\\app_icon.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+		Font fAppName = new Font("Times New Roman", Font.PLAIN, 30);
 		
 		// Agrega la fuente
-		lbAppName.setFont(font);
+		lbAppName.setFont(fAppName);
 		// Color del texto
 		lbAppName.setForeground(Color.decode("#E5CD24"));
 		// Agrega la imagen icono
 		lbAppName.setIcon(iconApp);
-		// Margen de separación entre el texto y el icono
+		// Margen de separaciï¿½n entre el texto y el icono
 		lbAppName.setIconTextGap(20);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.fill = GridBagConstraints.WEST;
+		
+		// Agrega la etiqueta al panel
+		pScreenSplash.add(lbAppName, gbc);
 	}
 
-	private void createLoadLabel() {
-		lbLoading = new JLabel("Loading");
+	private void createLoadingLabel() {
+		Font fLoading = new Font("Times New Roman", Font.PLAIN, 15);
+		
+		// Agrega la fuente
+		lbLoading.setFont(fLoading);
+		// Color del texto
+		lbLoading.setForeground(Color.decode("#00000"));
+		
+		gbc.gridy = 1;
+		
+		// Agrega la etiqueta al panel
+		pScreenSplash.add(lbLoading, gbc);
 	}
 
 	private void closeFrame() {
 		try {
-			this.sleep(2000);
+			this.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
