@@ -1,9 +1,9 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +15,6 @@ public class ScreenSplash extends Thread {
 	private JPanel pScreenSplash;
 	private JLabel lbAppName;
 	private JLabel lbLoading;
-	private GridBagConstraints gbc;
 	private ImageIcon iconApp;
 
 	public void run() {
@@ -25,13 +24,11 @@ public class ScreenSplash extends Thread {
 		pScreenSplash = new JPanel();
 		// Etiquetas
 		lbAppName = new JLabel("<html>ABC <br>Library</html>");
-		lbLoading = new JLabel("Loading");
-		// Estructura el layout
-		gbc = new GridBagConstraints();
+		lbLoading = new JLabel("Cargando...");
 		
 		// Imagen escalada
 		iconApp = new ImageIcon(new ImageIcon("./resources/app_icon.png")
-				.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+				.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		
 		// Crea la ventana de carga
 		createSplashScreen();
@@ -61,12 +58,12 @@ public class ScreenSplash extends Thread {
 	}
 
 	private void createPanel() {
+		// Tipo de layout
+		pScreenSplash.setLayout(new BorderLayout());
+		pScreenSplash.setBackground(Color.decode("#960018"));
+		
 		// Agrega los elementos al panel
 		addLabelsToPanel();
-
-		// Tipo de layout
-		pScreenSplash.setLayout(new GridBagLayout());
-		pScreenSplash.setBackground(Color.decode("#B22222"));
 
 		// Agrega el panel al marco
 		frScreenSplash.getContentPane().add(pScreenSplash);
@@ -84,32 +81,37 @@ public class ScreenSplash extends Thread {
 		// Agrega la fuente
 		lbAppName.setFont(fAppName);
 		// Color del texto
-		lbAppName.setForeground(Color.decode("#E5CD24"));
+		lbAppName.setForeground(Color.decode("#DACA84"));
 		// Agrega la imagen icono
 		lbAppName.setIcon(iconApp);
 		// Margen de separaci�n entre el texto y el icono
-		lbAppName.setIconTextGap(20);
+		lbAppName.setIconTextGap(25);
+		// Alinea horizonalmente el panel
+		lbAppName.setHorizontalAlignment(JLabel.CENTER);
 		
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.fill = GridBagConstraints.WEST;
-		
-		// Agrega la etiqueta al panel
-		pScreenSplash.add(lbAppName, gbc);
+		/* 
+		 * Agrega la etiqueta al panel
+		 * y centra verticalmente el panel
+		 */
+		pScreenSplash.add(lbAppName, BorderLayout.CENTER);
 	}
 
 	private void createLoadingLabel() {
-		Font fLoading = new Font("Times New Roman", Font.PLAIN, 15);
+		Font fLoading = new Font("Times New Roman", Font.PLAIN, 18);
 		
 		// Agrega la fuente
 		lbLoading.setFont(fLoading);
 		// Color del texto
-		lbLoading.setForeground(Color.decode("#00000"));
+		lbLoading.setForeground(Color.decode("#DACA84"));
+		// Margénes de seraración
+		lbLoading.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
 		
-		gbc.gridy = 1;
+		/*
+		 *  Agrega la etiqueta al panel y 
+		 *  la pone en la esquina inferior izquierda
+		 */
+		pScreenSplash.add(lbLoading, BorderLayout.PAGE_END);
 		
-		// Agrega la etiqueta al panel
-		pScreenSplash.add(lbLoading, gbc);
 	}
 
 	private void closeFrame() {
