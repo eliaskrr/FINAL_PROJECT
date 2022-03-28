@@ -1,4 +1,5 @@
 package presentation;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -14,7 +15,7 @@ public class ScreenSplash extends Thread {
 
 	private JFrame frScreenSplash;
 	private JPanel pScreenSplash;
-	private JLabel lbAppName;
+	private JLabel lbAppIcon;
 	private JLabel lbLoading;
 	private ImageIcon iconApp;
 
@@ -24,7 +25,7 @@ public class ScreenSplash extends Thread {
 		// Panel
 		pScreenSplash = new JPanel();
 		// Etiquetas
-		lbAppName = new JLabel("<html>ABC <br>Library</html>");
+		lbAppIcon = new JLabel("<html>ABC <br>Library</html>");
 		lbLoading = new JLabel("Cargando...");
 		
 		// Imagen escalada
@@ -72,36 +73,36 @@ public class ScreenSplash extends Thread {
 	
 	private void addLabelsToPanel() {
 		// Crea las etiquetas
-		createAppNameLabel();
+		createAppIconLabel();
 		createLoadingLabel();
 	}
 
-	private void createAppNameLabel() {
-		Font fAppName = new Font("Times New Roman", Font.PLAIN, 30);
+	private void createAppIconLabel() {
+		Font fntAppIcon = new Font("Times New Roman", Font.PLAIN, 30);
 		
 		// Agrega la fuente
-		lbAppName.setFont(fAppName);
+		lbAppIcon.setFont(fntAppIcon);
 		// Color del texto
-		lbAppName.setForeground(Color.decode("#DACA84"));
+		lbAppIcon.setForeground(Color.decode("#DACA84"));
 		// Agrega la imagen icono
-		lbAppName.setIcon(iconApp);
+		lbAppIcon.setIcon(iconApp);
 		// Margen de separaci�n entre el texto y el icono
-		lbAppName.setIconTextGap(25);
+		lbAppIcon.setIconTextGap(25);
 		// Alinea horizonalmente el panel
-		lbAppName.setHorizontalAlignment(JLabel.CENTER);
+		lbAppIcon.setHorizontalAlignment(JLabel.CENTER);
 		
 		/* 
 		 * Agrega la etiqueta al panel
 		 * y centra verticalmente el panel
 		 */
-		pScreenSplash.add(lbAppName, BorderLayout.CENTER);
+		pScreenSplash.add(lbAppIcon, BorderLayout.CENTER);
 	}
 
 	private void createLoadingLabel() {
-		Font fLoading = new Font("Times New Roman", Font.PLAIN, 18);
+		Font fntLoading = new Font("Times New Roman", Font.PLAIN, 18);
 		
 		// Agrega la fuente
-		lbLoading.setFont(fLoading);
+		lbLoading.setFont(fntLoading);
 		// Color del texto
 		lbLoading.setForeground(Color.decode("#DACA84"));
 		// Margénes de seraración
@@ -117,7 +118,7 @@ public class ScreenSplash extends Thread {
 
 	private void closeFrame() {
 		try {
-			this.sleep(5000);
+			this.sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
