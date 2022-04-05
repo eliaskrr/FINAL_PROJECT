@@ -21,8 +21,9 @@ public class ScreenSplash extends JFrame {
 	private JLabel lblAuthors;
 	private ImageIcon iconApp;
 	
+	
 	public ScreenSplash() {
-		iconApp = new ImageIcon(new ImageIcon(".\\resources\\app_icon.png").getImage()
+		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		// Cierra la ejecución por defecto
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +36,9 @@ public class ScreenSplash extends JFrame {
 		setIconImage(iconApp.getImage());
 	}
 	
-	public void showWindow() {
+	
+	
+	public void openWindow() {
 		createPanel();
 		createAppLabel();
 		createLoadingLabel();
@@ -46,7 +49,6 @@ public class ScreenSplash extends JFrame {
 	
 	private void createPanel() {
 		pMain = new JPanel();
-		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pMain.setBackground(Color.decode("#960018"));
 		setContentPane(pMain);
 		pMain.setLayout(new MigLayout("", "[590px]", "[249px][41px]"));
