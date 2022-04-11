@@ -13,44 +13,45 @@ import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ScreenSplash extends JFrame {
+public class ScreenSplash extends Thread {
 
+	private JFrame frMain;
 	private JPanel pMain;
 	private JLabel lblApp; 
 	private JLabel lblLoading;
 	private JLabel lblAuthors;
 	private ImageIcon iconApp;
 	
-	
-	public ScreenSplash() {
-		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
-				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-		// Cierra la ejecución por defecto
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// Dimensión del marco
-		setSize(600, 300);
-		// Elimina la barra de título
-		setUndecorated(true);
-		// Centra la ventana
-		setLocationRelativeTo(null);
-		setIconImage(iconApp.getImage());
+	public void openWindow() {
+		createWindow();
 	}
 	
-	
-	
-	public void openWindow() {
+	private void createWindow() {
+		createFrame();
 		createPanel();
 		createAppLabel();
 		createLoadingLabel();
 		createAuthorsLabel();
-		setVisible(true);
+		frMain.setVisible(true);
 		closeWindow();
+	}
+	
+	private void createFrame() {
+		frMain = new JFrame();
+		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
+				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+		
+		frMain.setSize(600, 300);
+		frMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frMain.setUndecorated(true);
+		frMain.setLocationRelativeTo(null);
+		frMain.setIconImage(iconApp.getImage());
 	}
 	
 	private void createPanel() {
 		pMain = new JPanel();
 		pMain.setBackground(Color.decode("#960018"));
-		setContentPane(pMain);
+		frMain.setContentPane(pMain);
 		pMain.setLayout(new MigLayout("", "[590px]", "[249px][41px]"));
 	}
 	
@@ -88,7 +89,7 @@ public class ScreenSplash extends JFrame {
 				"<html>" + 
 				"Creado por:<br>" + 
 				"&emsp;&emsp;Ilyasse Essadak Samaali<br>" +
-				"&emsp;&emsp;Jose María Sandoval Cerezo<br>" + 
+				"&emsp;&emsp;Jose Mar�a Sandoval Cerezo<br>" + 
 				"&emsp;&emsp;Diego Hoyos Puche" + 
 				"</html>");
 		lblAuthors.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -100,12 +101,12 @@ public class ScreenSplash extends JFrame {
 	
 	private void closeWindow() {
 		try {
-			Thread.sleep(2000);
+			sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		dispose();
+		frMain.dispose();
 	}
 	
 }

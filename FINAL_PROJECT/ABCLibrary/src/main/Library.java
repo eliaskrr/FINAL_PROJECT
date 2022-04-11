@@ -9,5 +9,8 @@ public class Library {
 		UserLogin login = new UserLogin();
 		
 		screenSplash.openWindow();
+		screenSplash.join();
+		
+		login.openWindow();
 	}
 }

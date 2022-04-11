@@ -21,11 +21,16 @@ public class UserLogin extends JFrame {
 	private JTextField txtfUser;
 	private JPasswordField passwordUser;
 	private ImageIcon iconApp;
+	private JLabel lblUser;
+	private JLabel lblPassword;
+	private JButton btAcept;
+	private JButton btCancel;
+	private GroupLayout gl_pMain;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -36,12 +41,26 @@ public class UserLogin extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
-	/**
-	 * Create the frame.
-	 */
 	public UserLogin() {
+		
+	}
+	
+	public void openWindow() {
+		createWindow();
+	}
+	
+	private void createWindow() {
+		createFrame();
+		createPanel();
+		createUserElements();
+		createPassElements();
+		configureLayout();
+		setVisible(true);
+	}
+	
+	private void createFrame() {
 		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		
@@ -51,26 +70,49 @@ public class UserLogin extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setIconImage(iconApp.getImage());
+	}
+	
+	private void createPanel() {
 		pMain = new JPanel();
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pMain.setBackground(Color.decode("#960018"));
 		setContentPane(pMain);
 		
-		JLabel lblUser = new JLabel("Usuario:");
+		btAcept = new JButton("ACEPTAR");
+		btCancel = new JButton("CANCELAR");
+	}
+	
+	private void createUserElements() {
+		createUserLabel();
+		createUserTextField();
+	}
+	
+	private void createPassElements() {
+		createPassLabel();
+		createPassTextField();
+	}
+	
+	private void createUserLabel() {
+		lblUser = new JLabel("Usuario:");
 		lblUser.setForeground(Color.decode("#DACA84"));
-		
-		JLabel lblPassword = new JLabel("ContraseÃ±a:");
-		lblPassword.setForeground(Color.decode("#DACA84"));
-		
+	}
+	
+	private void createUserTextField() {
 		txtfUser = new JTextField();
 		txtfUser.setColumns(10);
-		
+	}
+	
+	private void createPassLabel() {
+		lblPassword = new JLabel("Contraseña:");
+		lblPassword.setForeground(Color.decode("#DACA84"));
+	}
+	
+	private void createPassTextField() {
 		passwordUser = new JPasswordField();
-		
-		JButton btAcept = new JButton("ACEPTAR");
-		JButton btCancel = new JButton("CANCELAR");
-		
-		GroupLayout gl_pMain = new GroupLayout(pMain);
+	}
+	
+	private void configureLayout() {
+		gl_pMain = new GroupLayout(pMain);
 		gl_pMain.setHorizontalGroup(
 			gl_pMain.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pMain.createSequentialGroup()
