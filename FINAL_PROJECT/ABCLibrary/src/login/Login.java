@@ -1,13 +1,11 @@
 package login;
 
 import java.awt.Color;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,11 +15,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import programm.AlumnoWindow;
+import components.StyleButtonUI;
 import net.miginfocom.swing.MigLayout;
+import users_windows.AlumnoWindow;
 
+/**
+ * En esta clase se realizará el logueo del usuario (alumno, profesor o admin)
+ * que podrá acceder a su ventana en concreto
+ */
 public class Login extends JFrame {
-	
+
 	private JPanel pMain;
 	private JTextField txtUser;
 	private JPasswordField passUser;
@@ -29,29 +32,12 @@ public class Login extends JFrame {
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JButton btAcept;
-	private JButton btCancel;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JButton btSalir;
 
 	public Login() {
 		createWindow();
 	}
-	
-	public void openWindow() {
-		createWindow();
-	}
-	
+
 	private void createWindow() {
 		createFrame();
 		createPanel();
@@ -62,12 +48,12 @@ public class Login extends JFrame {
 		// Muestra la ventana
 		setVisible(true);
 	}
-	
+
 	private void createFrame() {
 		// Imagen de la app
-		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
-				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-		
+		iconApp = new ImageIcon(
+				new ImageIcon(".\\res\\icon.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+
 		setTitle("LIBRARY ABC");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 400);
@@ -75,81 +61,87 @@ public class Login extends JFrame {
 		setLocationRelativeTo(null);
 		setIconImage(iconApp.getImage());
 	}
-	
+
 	private void createPanel() {
 		pMain = new JPanel();
-		
+
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pMain.setBackground(Color.decode("#960018"));
 		// Agrega el panel al marco
 		setContentPane(pMain);
 	}
-	
+
 	private void createLabels() {
 		// Label usuario
 		lblUser = new JLabel("Usuario:");
+		lblUser.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		lblUser.setForeground(Color.decode("#DACA84"));
-		
+
 		// Label contraseña
 		lblPassword = new JLabel("Contraseña:");
+		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		lblPassword.setForeground(Color.decode("#DACA84"));
-		
+
 	}
-	
+
 	private void createTextFields() {
 		// Cuadro de texto usuario
 		txtUser = new JTextField();
-		txtUser.setColumns(10);
-		
+
 		// Cuadro de texto contraseña
 		passUser = new JPasswordField();
 	}
-	
+
 	private void createButtons() {
-		// Botones
+		// Botón salir
 		btAcept = new JButton("ACEPTAR");
-		btCancel = new JButton("CANCELAR");
-		
-		
-		// Acción al aceptar
+		btAcept.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		btAcept.setUI(new StyleButtonUI());
+		// Acción al pulsar el botón
+		tryLogging();
+
+		// Botón aceptar
+		btSalir = new JButton("SALIR");
+		btSalir.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		btSalir.setUI(new StyleButtonUI());		
+		// Acción al pulsar el botón
+		exitApplication();
+	}
+
+	public void tryLogging() {
 		btAcept.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AlumnoWindow alumnoWindow = new AlumnoWindow();
-				Database database = new Database(txtUser.getText(), 
-						String.valueOf(passUser.getPassword()));
-				
-				/* 
-				 * Comprueba si existe usuario y abre la ventana para
-				 * según el tipo de usuario logueado 
-				 */
+				AlumnoWindow alumnoWindow;
+				Database database = new Database(txtUser.getText(), String.valueOf(passUser.getPassword()));
+
+				// Comprueba si existe el usuario y abre su ventna
 				if (database.isUser()) {
 					if (database.getUserType().equals("alumno")) {
-						alumnoWindow.openWindow();
-						// Cierra la ventana actual
+						// Abre la ventana del alumno
+						alumnoWindow = new AlumnoWindow();
+						// Cierra la ventana del login
 						dispose();
+					} else if (database.getUserType().equals("profesor")) {
+
+					} else {
+
 					}
-					else if (database.getUserType().equals("profesor")){
-						
-					}
-					else {
-						
-					}
-				}
-				else {
+				} else {
 					System.out.println("No existe");
 				}
 			}
 		});
-		
-		// Acción al cancelar
-		btCancel.addActionListener(new ActionListener() {
+	}
+	
+	private void exitApplication() {
+		btSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Cierra la ventana
 				dispose();
 			}
 		});
 	}
-	
+
 	private void configureLayout() {
 		pMain.setLayout(new MigLayout("", "[25%][25%][25%][25%]", "[33%][33%][33%]"));
 		pMain.add(lblUser, "cell 0 0,alignx center,aligny bottom");
@@ -157,6 +149,6 @@ public class Login extends JFrame {
 		pMain.add(passUser, "cell 1 1,growx,aligny center");
 		pMain.add(txtUser, "cell 1 0,growx,aligny bottom");
 		pMain.add(btAcept, "cell 2 2,alignx center,aligny center");
-		pMain.add(btCancel, "cell 3 2,alignx leading,aligny baseline");
+		pMain.add(btSalir, "cell 3 2,alignx leading,aligny baseline");
 	}
 }

@@ -1,7 +1,6 @@
 package presentation;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -17,7 +16,6 @@ import net.miginfocom.swing.MigLayout;
  * Esta clase será para presentar nuestro programa
  * y lógicamente será la primera en ejecutarse
  */
-
 public class ScreenSplash extends Thread {
 
 	private JFrame frMain;
@@ -27,10 +25,10 @@ public class ScreenSplash extends Thread {
 	private JLabel lblAuthors;
 	private ImageIcon iconApp;
 	
-	public void openWindow() {
+	public ScreenSplash() {
 		createWindow();
 	}
-	
+
 	private void createWindow() {
 		createFrame();
 		createPanel();
@@ -43,7 +41,7 @@ public class ScreenSplash extends Thread {
 	private void createFrame() {
 		frMain = new JFrame();
 		// Imagen del icono de la app
-		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
+		iconApp = new ImageIcon(new ImageIcon(".\\res\\icon.png").getImage()
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		
 		frMain.setSize(600, 300);
@@ -76,7 +74,7 @@ public class ScreenSplash extends Thread {
 		pMain.add(lblApp, "cell 1 1,growx,aligny center");
 		
 		// Label de carga 
-		lblLoading = new JLabel("Loading...");
+		lblLoading = new JLabel("Cargando...");
 		lblLoading.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblLoading.setForeground(Color.decode("#DACA84"));
 		lblLoading.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
@@ -102,7 +100,6 @@ public class ScreenSplash extends Thread {
 		try {
 			sleep(3000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Cierra la ventana
