@@ -1,6 +1,7 @@
 package login;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import programm.AlumnoWindow;
+import net.miginfocom.swing.MigLayout;
 
 public class Login extends JFrame {
 	
@@ -28,9 +30,8 @@ public class Login extends JFrame {
 	private JLabel lblPassword;
 	private JButton btAcept;
 	private JButton btCancel;
-	private GroupLayout gl_pMain;
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,7 +46,7 @@ public class Login extends JFrame {
 
 	public Login() {
 		createWindow();
-	}*/
+	}
 	
 	public void openWindow() {
 		createWindow();
@@ -117,9 +118,11 @@ public class Login extends JFrame {
 				Database database = new Database(txtUser.getText(), 
 						String.valueOf(passUser.getPassword()));
 				
-				// Comprueba si existe usuario
+				/* 
+				 * Comprueba si existe usuario y abre la ventana para
+				 * según el tipo de usuario logueado 
+				 */
 				if (database.isUser()) {
-					// Abre la ventana para usuario
 					if (database.getUserType().equals("alumno")) {
 						alumnoWindow.openWindow();
 						// Cierra la ventana actual
@@ -148,44 +151,12 @@ public class Login extends JFrame {
 	}
 	
 	private void configureLayout() {
-		gl_pMain = new GroupLayout(pMain);
-		gl_pMain.setHorizontalGroup(
-			gl_pMain.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_pMain.createSequentialGroup()
-					.addGap(100)
-					.addGroup(gl_pMain.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblUser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblPassword))
-					.addGap(27)
-					.addGroup(gl_pMain.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(passUser)
-						.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(409, Short.MAX_VALUE))
-				.addGroup(gl_pMain.createSequentialGroup()
-					.addContainerGap(444, Short.MAX_VALUE)
-					.addComponent(btAcept)
-					.addGap(38)
-					.addComponent(btCancel)
-					.addGap(138))
-		);
-		gl_pMain.setVerticalGroup(
-			gl_pMain.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_pMain.createSequentialGroup()
-					.addGap(122)
-					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblUser)
-						.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(36)
-					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(passUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(57)
-					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btAcept)
-						.addComponent(btCancel))
-					.addContainerGap())
-		);
-		// Agrega la configuración del layout al panel
-		pMain.setLayout(gl_pMain);
+		pMain.setLayout(new MigLayout("", "[25%][25%][25%][25%]", "[33%][33%][33%]"));
+		pMain.add(lblUser, "cell 0 0,alignx center,aligny bottom");
+		pMain.add(lblPassword, "cell 0 1,alignx center,aligny center");
+		pMain.add(passUser, "cell 1 1,growx,aligny center");
+		pMain.add(txtUser, "cell 1 0,growx,aligny bottom");
+		pMain.add(btAcept, "cell 2 2,alignx center,aligny center");
+		pMain.add(btCancel, "cell 3 2,alignx leading,aligny baseline");
 	}
 }

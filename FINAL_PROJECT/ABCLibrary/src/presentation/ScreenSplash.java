@@ -14,9 +14,10 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
 /*
- * Ventana de inicio que muestra el logo de la app
- * y los desarrolladores
+ * Esta clase será para presentar nuestro programa
+ * y lógicamente será la primera en ejecutarse
  */
+
 public class ScreenSplash extends Thread {
 
 	private JFrame frMain;
