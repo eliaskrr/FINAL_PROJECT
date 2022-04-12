@@ -1,8 +1,9 @@
 package login;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -15,11 +16,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class Login extends JFrame {
+import programm.AlumnoWindow;
 
+public class Login extends JFrame {
+	
 	private JPanel pMain;
-	private JTextField txtfUser;
-	private JPasswordField passwordUser;
+	private JTextField txtUser;
+	private JPasswordField passUser;
 	private ImageIcon iconApp;
 	private JLabel lblUser;
 	private JLabel lblPassword;
@@ -27,9 +30,6 @@ public class Login extends JFrame {
 	private JButton btCancel;
 	private GroupLayout gl_pMain;
 
-	/**
-	 * Launch the application.
-	 */
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -97,24 +97,60 @@ public class Login extends JFrame {
 	
 	private void createTextFields() {
 		// Cuadro de texto usuario
-		txtfUser = new JTextField();
-		txtfUser.setColumns(10);
+		txtUser = new JTextField();
+		txtUser.setColumns(10);
 		
 		// Cuadro de texto contraseña
-		passwordUser = new JPasswordField();
+		passUser = new JPasswordField();
 	}
 	
 	private void createButtons() {
+		// Botones
 		btAcept = new JButton("ACEPTAR");
-		
 		btCancel = new JButton("CANCELAR");
+		
+		
+		// Acción al aceptar
+		btAcept.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AlumnoWindow alumnoWindow = new AlumnoWindow();
+				Database database = new Database(txtUser.getText(), 
+						String.valueOf(passUser.getPassword()));
+				
+				// Comprueba si existe usuario
+				if (database.isUser()) {
+					// Abre la ventana para usuario
+					if (database.getUserType().equals("alumno")) {
+						alumnoWindow.openWindow();
+						// Cierra la ventana actual
+						dispose();
+					}
+					else if (database.getUserType().equals("profesor")){
+						
+					}
+					else {
+						
+					}
+				}
+				else {
+					System.out.println("No existe");
+				}
+			}
+		});
+		
+		// Acción al cancelar
+		btCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Cierra la ventana
+				dispose();
+			}
+		});
 	}
 	
 	private void configureLayout() {
 		gl_pMain = new GroupLayout(pMain);
-		
 		gl_pMain.setHorizontalGroup(
-			gl_pMain.createParallelGroup(Alignment.LEADING)
+			gl_pMain.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_pMain.createSequentialGroup()
 					.addGap(100)
 					.addGroup(gl_pMain.createParallelGroup(Alignment.LEADING, false)
@@ -122,36 +158,34 @@ public class Login extends JFrame {
 						.addComponent(lblPassword))
 					.addGap(27)
 					.addGroup(gl_pMain.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(passwordUser)
-						.addComponent(txtfUser, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE))
+						.addComponent(passUser)
+						.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(409, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_pMain.createSequentialGroup()
+				.addGroup(gl_pMain.createSequentialGroup()
 					.addContainerGap(444, Short.MAX_VALUE)
 					.addComponent(btAcept)
 					.addGap(38)
 					.addComponent(btCancel)
 					.addGap(138))
 		);
-		
 		gl_pMain.setVerticalGroup(
 			gl_pMain.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pMain.createSequentialGroup()
 					.addGap(122)
 					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUser)
-						.addComponent(txtfUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(36)
 					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword)
-						.addComponent(passwordUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(passUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(57)
 					.addGroup(gl_pMain.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btAcept)
 						.addComponent(btCancel))
-					.addContainerGap(79, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		// Agrega la configuración del layout al panel
 		pMain.setLayout(gl_pMain);
 	}
-	
 }

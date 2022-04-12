@@ -1,6 +1,7 @@
 package presentation;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -9,10 +10,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import net.miginfocom.swing.MigLayout;
 
+/*
+ * Ventana de inicio que muestra el logo de la app
+ * y los desarrolladores
+ */
 public class ScreenSplash extends Thread {
 
 	private JFrame frMain;
@@ -29,15 +33,15 @@ public class ScreenSplash extends Thread {
 	private void createWindow() {
 		createFrame();
 		createPanel();
-		createAppLabel();
-		createLoadingLabel();
-		createAuthorsLabel();
+		createLabels();
+		// Muestra la ventana
 		frMain.setVisible(true);
 		closeWindow();
 	}
 	
 	private void createFrame() {
 		frMain = new JFrame();
+		// Imagen del icono de la app
 		iconApp = new ImageIcon(new ImageIcon(".\\resources\\icon.png").getImage()
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 		
@@ -45,17 +49,20 @@ public class ScreenSplash extends Thread {
 		frMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frMain.setUndecorated(true);
 		frMain.setLocationRelativeTo(null);
+		// Agrega la imagen a la barra de t�tulo
 		frMain.setIconImage(iconApp.getImage());
 	}
 	
 	private void createPanel() {
 		pMain = new JPanel();
+		
 		pMain.setBackground(Color.decode("#960018"));
 		frMain.setContentPane(pMain);
-		pMain.setLayout(new MigLayout("", "[590px]", "[249px][41px]"));
 	}
 	
-	private void createAppLabel() {
+	private void createLabels() {
+		pMain.setLayout(new MigLayout("", "[204.00px][260.00px][213.00px]", "[33%,top][33%,center][33%,center]"));
+		// Label del icono de la app
 		lblApp = new JLabel(
 				"<html>" + 
 				"ABC <br>Library" + 
@@ -63,28 +70,18 @@ public class ScreenSplash extends Thread {
 		lblApp.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		lblApp.setForeground(Color.decode("#DACA84"));
 		lblApp.setIcon(iconApp);
-		// Margen de separción entre el texto y la imagen
 		lblApp.setIconTextGap(25);
-		// Centra horizontalmente la etiquete
 		lblApp.setHorizontalAlignment(JLabel.CENTER);
-
-		// Agrega al panel
-		pMain.add(lblApp, "cell 0 0,grow");
-	}
-	
-	private void createLoadingLabel() {
+		pMain.add(lblApp, "cell 1 1,growx,aligny center");
+		
+		// Label de carga 
 		lblLoading = new JLabel("Loading...");
 		lblLoading.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblLoading.setForeground(Color.decode("#DACA84"));
-		// Margénes de seraración
 		lblLoading.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
+		pMain.add(lblLoading, "cell 0 2,alignx left,aligny bottom");
 		
-		// Agrega al panel
-		pMain.add(lblLoading, "flowx,cell 0 1,growx,aligny top");
-	}
-	
-
-	private void createAuthorsLabel() {
+		// Label de los desarrolladores
 		lblAuthors = new JLabel(
 				"<html>" + 
 				"Creado por:<br>" + 
@@ -96,9 +93,10 @@ public class ScreenSplash extends Thread {
 		lblAuthors.setForeground(Color.decode("#DACA84"));
 		
 		// Agrega al panel
-		pMain.add(lblAuthors, "cell 0 1 1 2,alignx right,aligny bottom");
+		pMain.add(lblAuthors, "cell 2 2,alignx right,aligny bottom");
 	}
 	
+
 	private void closeWindow() {
 		try {
 			sleep(3000);
@@ -106,6 +104,7 @@ public class ScreenSplash extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// Cierra la ventana
 		frMain.dispose();
 	}
 	
