@@ -15,7 +15,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import components.StyleButtonUI;
+import assistant.Images;
+import assistant.Style;
 import net.miginfocom.swing.MigLayout;
 import users_windows.AlumnoWindow;
 
@@ -28,17 +29,21 @@ public class Login extends JFrame {
 	private JPanel pMain;
 	private JTextField txtUser;
 	private JPasswordField passUser;
-	private ImageIcon iconApp;
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JButton btAcept;
 	private JButton btSalir;
+	private Style style;
+	private Images image;
 
 	public Login() {
 		createWindow();
 	}
 
 	private void createWindow() {
+		style = new Style();
+		image = new Images();
+		
 		createFrame();
 		createPanel();
 		createLabels();
@@ -50,23 +55,19 @@ public class Login extends JFrame {
 	}
 
 	private void createFrame() {
-		// Imagen de la app
-		iconApp = new ImageIcon(
-				new ImageIcon(".\\res\\icon.png").getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-
 		setTitle("LIBRARY ABC");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 400);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setIconImage(iconApp.getImage());
+		setIconImage(image.getIconApp().getImage());
 	}
 
 	private void createPanel() {
 		pMain = new JPanel();
 
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
-		pMain.setBackground(Color.decode("#960018"));
+		pMain.setBackground(style.getRedColor());
 		// Agrega el panel al marco
 		setContentPane(pMain);
 	}
@@ -74,13 +75,13 @@ public class Login extends JFrame {
 	private void createLabels() {
 		// Label usuario
 		lblUser = new JLabel("Usuario:");
-		lblUser.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblUser.setForeground(Color.decode("#DACA84"));
+		lblUser.setFont(new Font("Calibri", Font.BOLD, 14));
+		lblUser.setForeground(style.getYellowColor());
 
 		// Label contraseña
 		lblPassword = new JLabel("Contraseña:");
-		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblPassword.setForeground(Color.decode("#DACA84"));
+		lblPassword.setFont(new Font("Calibri", Font.BOLD, 14));
+		lblPassword.setForeground(style.getYellowColor());
 
 	}
 
@@ -93,17 +94,18 @@ public class Login extends JFrame {
 	}
 
 	private void createButtons() {
+		
 		// Botón salir
 		btAcept = new JButton("ACEPTAR");
-		btAcept.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		btAcept.setUI(new StyleButtonUI());
+		btAcept.setFont(new Font("Calibri", Font.BOLD, 10));
+		btAcept.setBackground(style.getYellowColor());
+		
 		// Acción al pulsar el botón
 		tryLogging();
 
 		// Botón aceptar
 		btSalir = new JButton("SALIR");
-		btSalir.setFont(new Font("Times New Roman", Font.BOLD, 10));
-		btSalir.setUI(new StyleButtonUI());		
+		btSalir.setFont(new Font("Calibri", Font.BOLD, 10));
 		// Acción al pulsar el botón
 		exitApplication();
 	}
@@ -127,7 +129,7 @@ public class Login extends JFrame {
 
 					}
 				} else {
-					System.out.println("No existe");
+					//System.out.println("No existe");
 				}
 			}
 		});
