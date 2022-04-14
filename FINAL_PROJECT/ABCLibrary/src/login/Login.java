@@ -1,10 +1,11 @@
 package login;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,35 +16,28 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import assistant.Images;
-import assistant.Style;
+import constant.ApplicationColor;
+import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
-import users_windows.AlumnoWindow;
 
 /**
  * En esta clase se realizará el logueo del usuario (alumno, profesor o admin)
  * que podrá acceder a su ventana en concreto
  */
 public class Login extends JFrame {
-
 	private JPanel pMain;
 	private JTextField txtUser;
 	private JPasswordField passUser;
 	private JLabel lblUser;
 	private JLabel lblPassword;
-	private JButton btAcept;
-	private JButton btSalir;
-	private Style style;
-	private Images image;
+	private JLabel btCancel;
+	private JLabel btAcept;
 
 	public Login() {
-		createWindow();
+		//openWindow();
 	}
 
-	private void createWindow() {
-		style = new Style();
-		image = new Images();
-		
+	public void openWindow() {
 		createFrame();
 		createPanel();
 		createLabels();
@@ -60,14 +54,14 @@ public class Login extends JFrame {
 		setSize(800, 400);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setIconImage(image.getIconApp().getImage());
+		setIconImage(ApplicationIconImage.ICON.getIcon().getImage());
 	}
 
 	private void createPanel() {
 		pMain = new JPanel();
 
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
-		pMain.setBackground(style.getRedColor());
+		pMain.setBackground(ApplicationColor.RED.getColor());
 		// Agrega el panel al marco
 		setContentPane(pMain);
 	}
@@ -76,12 +70,12 @@ public class Login extends JFrame {
 		// Label usuario
 		lblUser = new JLabel("Usuario:");
 		lblUser.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblUser.setForeground(style.getYellowColor());
+		lblUser.setForeground(ApplicationColor.YELLOW.getColor());
 
 		// Label contraseña
 		lblPassword = new JLabel("Contraseña:");
 		lblPassword.setFont(new Font("Calibri", Font.BOLD, 14));
-		lblPassword.setForeground(style.getYellowColor());
+		lblPassword.setForeground(ApplicationColor.YELLOW.getColor());
 
 	}
 
@@ -94,54 +88,59 @@ public class Login extends JFrame {
 	}
 
 	private void createButtons() {
+		createAceptButton();
+		createCancelButton();
+	}
+	
+	public void createAceptButton() {
+		ImageIcon scaledPrimaryAceptButton = new ImageIcon(ApplicationIconImage.ACEPT_PRIMARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		ImageIcon scaledSecondaryAceptButton = new ImageIcon(ApplicationIconImage.ACEPT_SECONDARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		btAcept = new JLabel(scaledPrimaryAceptButton);
 		
-		// Botón salir
-		btAcept = new JButton("ACEPTAR");
-		btAcept.setFont(new Font("Calibri", Font.BOLD, 10));
-		btAcept.setBackground(style.getYellowColor());
-		
+		btAcept.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btAcept.setIcon(scaledSecondaryAceptButton);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btAcept.setIcon(scaledPrimaryAceptButton);
+			}
+		});
 		// Acción al pulsar el botón
 		tryLogging();
-
-		// Botón aceptar
-		btSalir = new JButton("SALIR");
-		btSalir.setFont(new Font("Calibri", Font.BOLD, 10));
+	}
+	
+	private void createCancelButton() {
+		ImageIcon scaledPrimaryCancelButton = new ImageIcon(ApplicationIconImage.CANCEL_PRIMARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		ImageIcon scaledSecondaryCancelButton = new ImageIcon(ApplicationIconImage.CANCEL_SECONDARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(70, 35, Image.SCALE_SMOOTH));
+		btCancel = new JLabel(scaledPrimaryCancelButton);
+		
+		btCancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btCancel.setIcon(scaledSecondaryCancelButton);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btCancel.setIcon(scaledPrimaryCancelButton);
+			}
+		});
+		
 		// Acción al pulsar el botón
 		exitApplication();
 	}
 
 	public void tryLogging() {
-		btAcept.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AlumnoWindow alumnoWindow;
-				Database database = new Database(txtUser.getText(), String.valueOf(passUser.getPassword()));
-
-				// Comprueba si existe el usuario y abre su ventna
-				if (database.isUser()) {
-					if (database.getUserType().equals("alumno")) {
-						// Abre la ventana del alumno
-						alumnoWindow = new AlumnoWindow();
-						// Cierra la ventana del login
-						dispose();
-					} else if (database.getUserType().equals("profesor")) {
-
-					} else {
-
-					}
-				} else {
-					//System.out.println("No existe");
-				}
-			}
-		});
+		
 	}
 	
 	private void exitApplication() {
-		btSalir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Cierra la ventana
-				dispose();
-			}
-		});
+		
 	}
 
 	private void configureLayout() {
@@ -151,6 +150,6 @@ public class Login extends JFrame {
 		pMain.add(passUser, "cell 1 1,growx,aligny center");
 		pMain.add(txtUser, "cell 1 0,growx,aligny bottom");
 		pMain.add(btAcept, "cell 2 2,alignx center,aligny center");
-		pMain.add(btSalir, "cell 3 2,alignx leading,aligny baseline");
+		pMain.add(btCancel, "cell 3 2,alignx leading,aligny baseline");
 	}
 }

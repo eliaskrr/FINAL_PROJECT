@@ -1,13 +1,5 @@
-/windows/
+/presentation/
+/constants/
 /login/
 /main/
-/General.class
-/general/
-/presentation/
-/database/
-/programm/
-/users/
-/users_windows/
-/components/
-/Assistant/
-/assistant/
+/constant/
