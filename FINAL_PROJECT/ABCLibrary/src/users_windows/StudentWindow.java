@@ -6,18 +6,18 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import constant.ApplicationColor;
 import net.miginfocom.swing.MigLayout;
 
-public class AlumnoWindow extends JFrame {
+public class StudentWindow extends JFrame {
 
 	private JPanel pMain = new JPanel();
 	private ImageIcon iconApp;
 
-	public AlumnoWindow() {
-		createWindow();
-	}
+	public StudentWindow() {}
 
-	public void createWindow() {
+	public void openWindow() {
 		createFrame();
 		createPanel();
 		setVisible(true);
@@ -28,18 +28,16 @@ public class AlumnoWindow extends JFrame {
 		iconApp = new ImageIcon(new ImageIcon(".\\res\\icon.png").getImage()
 				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
 
-		setTitle("LIBRARY ABC");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 400);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setLocationRelativeTo(null);
-		setIconImage(iconApp.getImage());
 	}
 
 	private void createPanel() {
 		pMain = new JPanel();
 
-		pMain.setBackground(Color.decode("#960018"));
+		pMain.setBackground(ApplicationColor.BLACK.getColor());
 		setContentPane(pMain);
 		pMain.setLayout(null);
 	}

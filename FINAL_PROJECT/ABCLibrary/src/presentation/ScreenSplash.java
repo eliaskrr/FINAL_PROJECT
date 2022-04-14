@@ -51,18 +51,18 @@ public class ScreenSplash extends Thread {
 	private void createPanel() {
 		pMain = new JPanel();
 		
-		pMain.setBackground(ApplicationColor.RED.getColor());
+		pMain.setBackground(ApplicationColor.BLACK.getColor());
 		frMain.setContentPane(pMain);
 	}
 	
 	private void createLabels() {
 		ImageIcon scaledIconAppImage = new ImageIcon(ApplicationIconImage.ICON.getIcon()
 				.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH));
-		lblApp = new JLabel("<html> ABC <br>Librar </html>");
+		lblApp = new JLabel("<html> ABC <br>Library </html>");
 		
 		pMain.setLayout(new MigLayout("", "[204.00px][260.00px][213.00px]", "[33%,top][33%,center][33%,center]"));
 		lblApp.setFont(new Font("Calibri", Font.BOLD, 30));
-		lblApp.setForeground(ApplicationColor.YELLOW.getColor());
+		lblApp.setForeground(ApplicationColor.WHITE.getColor());
 		lblApp.setIcon(scaledIconAppImage);
 		lblApp.setIconTextGap(25);
 		lblApp.setHorizontalAlignment(JLabel.CENTER);

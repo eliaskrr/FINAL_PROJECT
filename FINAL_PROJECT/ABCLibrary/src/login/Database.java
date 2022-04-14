@@ -47,12 +47,11 @@ public class Database {
 		
 		try {
 			while (rs.next()) {
-				// Comprueba si existe el usuario
+				// Devuelve true si existe usuario
 				if (userName.equals(rs.getString(1)) && userPassword.equals(rs.getString(2))) {
 					isUser = true;
-					// Guarda el tipo de usuario (alumno, profesor, admin)
+					// Obtiene el tipo de usuario logueado
 					userType = rs.getString(3);
-					// Si existe sale del bucle
 					break;
 				}
 			}
