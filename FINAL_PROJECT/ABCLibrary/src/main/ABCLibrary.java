@@ -8,16 +8,16 @@ import presentation.ScreenSplash;
 public class ABCLibrary {
 
 	public static void main(String[] args) throws InterruptedException {
-		ScreenSplash screenSplash = new ScreenSplash();
-		Login login = new Login();
+		ScreenSplash screenSplash;
+		Login login;
 		
 		// Inicia la ventana de presentación (hilo)
-		screenSplash.start();
+		screenSplash = new ScreenSplash();
 		// Espera a que finalice el hilo
 		screenSplash.join();
 		
 		// Abre la ventana para loguearse
-		login.openWindow();
+		login = new Login();
 	}
 		
 }

@@ -21,14 +21,11 @@ public class ScreenSplash extends Thread {
 	private JPanel pMain;
 	private JLabel lblApp; 
 	
-	public ScreenSplash() {}
-	
-	@Override
-	public void run() {
-		createWindow();
+	public ScreenSplash() {
+		initComponents();
 	}
-
-	private void createWindow() {
+	
+	private void initComponents() {
 		createFrame();
 		createPanel();
 		createLabels();

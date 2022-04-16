@@ -1,6 +1,5 @@
 package users_windows;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -8,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import constant.ApplicationColor;
-import net.miginfocom.swing.MigLayout;
+import constant.ApplicationIconImage;
 
 public class StudentWindow extends JFrame {
 
@@ -40,6 +39,22 @@ public class StudentWindow extends JFrame {
 		pMain.setBackground(ApplicationColor.BLACK.getColor());
 		setContentPane(pMain);
 		pMain.setLayout(null);
+	}
+	
+	private void createCrossButton() {
+		ImageIcon scaledPrimaryCrossButton = new ImageIcon(ApplicationIconImage.CROSS_PRIMARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH));
+		ImageIcon scaledSecondaryCrossButton = new ImageIcon(ApplicationIconImage.CROSS_SECONDARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH));
+		
+	}
+
+	private void createMinimizeButton() {
+		ImageIcon scaledPrimaryMinimizeButton = new ImageIcon(ApplicationIconImage.MINIMIZE_PRIMARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH));
+		ImageIcon scaledSecondaryMinimizeButton = new ImageIcon(ApplicationIconImage.MINIMIZE_SECONDARY_BUTTON.getIcon()
+				.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH));
+		
 	}
 
 }

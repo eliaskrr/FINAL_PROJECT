@@ -8,7 +8,8 @@ import java.awt.Color;
  */
 public enum ApplicationColor {
 	BLACK(Color.decode("#1E1818")),
-	WHITE(Color.decode("#FFFFFF"));
+	WHITE(Color.decode("#FFFFFF")),
+	RED(Color.decode("#AA0707"));
 	
 	private Color color;
 	
