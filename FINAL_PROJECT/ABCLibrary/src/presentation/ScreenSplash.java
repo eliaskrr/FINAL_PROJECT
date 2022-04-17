@@ -12,9 +12,10 @@ import constant.ApplicationColor;
 import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
 
-/*
+/**
  * Esta clase será para presentar nuestro programa
- * y lógicamente será la primera en ejecutarse
+ * y lógicamente será la primera en ejecutarse.
+ * @author Ilyasse Essadak Samaali
  */
 public class ScreenSplash extends Thread {
 	private JFrame frMain;
@@ -42,13 +43,13 @@ public class ScreenSplash extends Thread {
 		frMain.setUndecorated(true);
 		frMain.setLocationRelativeTo(null);
 		// Agrega la imagen a la barra de título
-		frMain.setIconImage(ApplicationIconImage.ICON.getIcon().getImage());
+		frMain.setIconImage(ApplicationIconImage.CROSS_PRIMARY_BUTTON.getIcon().getImage());
 	}
 	
 	private void createPanel() {
 		pMain = new JPanel();
 		
-		pMain.setBackground(ApplicationColor.BLACK.getColor());
+		pMain.setBackground(ApplicationColor.BACKGROUND_COLOR.getColor());
 		frMain.setContentPane(pMain);
 	}
 	
@@ -59,7 +60,7 @@ public class ScreenSplash extends Thread {
 		
 		pMain.setLayout(new MigLayout("", "[204.00px][260.00px][213.00px]", "[33%,top][33%,center][33%,center]"));
 		lblApp.setFont(new Font("Calibri", Font.BOLD, 30));
-		lblApp.setForeground(ApplicationColor.WHITE.getColor());
+		lblApp.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		lblApp.setIcon(scaledIconAppImage);
 		lblApp.setIconTextGap(25);
 		lblApp.setHorizontalAlignment(JLabel.CENTER);

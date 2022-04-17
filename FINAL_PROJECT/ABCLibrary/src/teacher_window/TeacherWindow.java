@@ -1,4 +1,4 @@
-package users_windows;
+package teacher_window;
 
 import java.awt.Image;
 
@@ -9,24 +9,26 @@ import javax.swing.JPanel;
 import constant.ApplicationColor;
 import constant.ApplicationIconImage;
 
-public class StudentWindow extends JFrame {
+/**
+ * Esta clase muestra la ventana del profesor.
+ * @author Ilyasse Essadak Samaali
+ */
+public class TeacherWindow extends JFrame {
 
 	private JPanel pMain = new JPanel();
-	private ImageIcon iconApp;
 
-	public StudentWindow() {}
+	public TeacherWindow() {
+		initComponents();
+	}
 
-	public void openWindow() {
+	
+	public void initComponents() {
 		createFrame();
 		createPanel();
 		setVisible(true);
 	}
 
 	public void createFrame() {
-		// Imagen del icono de la app
-		iconApp = new ImageIcon(new ImageIcon(".\\res\\icon.png").getImage()
-				.getScaledInstance(80, 80, Image.SCALE_DEFAULT));
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 400);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -36,7 +38,7 @@ public class StudentWindow extends JFrame {
 	private void createPanel() {
 		pMain = new JPanel();
 
-		pMain.setBackground(ApplicationColor.BLACK.getColor());
+		pMain.setBackground(ApplicationColor.BACKGROUND_COLOR.getColor());
 		setContentPane(pMain);
 		pMain.setLayout(null);
 	}

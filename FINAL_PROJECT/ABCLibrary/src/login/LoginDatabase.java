@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Database {
+public class LoginDatabase {
 
 	// Usuario a loguearse
 	private String userName;
@@ -21,7 +21,7 @@ public class Database {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	
-	public Database(String userName, String userPassword) {
+	public LoginDatabase(String userName, String userPassword) {
 		connection();
 		this.userName = userName;
 		this.userPassword = userPassword;

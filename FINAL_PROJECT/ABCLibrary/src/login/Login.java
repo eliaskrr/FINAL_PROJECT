@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,11 +20,12 @@ import javax.swing.border.EmptyBorder;
 import constant.ApplicationColor;
 import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
-import users_windows.StudentWindow;
+import teacher_window.TeacherWindow;
 
 /**
  * En esta clase se realizará el logueo del usuario (alumno, profesor o admin)
- * que podrá acceder a su ventana en concreto
+ * que podrá acceder a su ventana en concreto.
+ * @author Ilyasse Essadak Samaali
  */
 public class Login extends JFrame {
 	private JPanel pMain;
@@ -31,8 +33,8 @@ public class Login extends JFrame {
 	private JPasswordField passUser;
 	private JLabel lblUser;
 	private JLabel lblPassword;
-	private JLabel btCancel;
-	private JLabel btAcept;
+	private JButton btCancel;
+	private JButton btAcept;
 	private JLabel lblIconApp;
 	private JLabel lblLogin;
 	private JLabel lblErrorMessage;
@@ -66,7 +68,7 @@ public class Login extends JFrame {
 	private void createPanel() {
 		pMain = new JPanel();
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
-		pMain.setBackground(ApplicationColor.BLACK.getColor());
+		pMain.setBackground(ApplicationColor.BACKGROUND_COLOR.getColor());
 		// Agrega el panel al marco
 		setContentPane(pMain);
 	}
@@ -81,22 +83,22 @@ public class Login extends JFrame {
 		// Texto login
 		lblLogin = new JLabel("INICIAR SESI\u00D3N");
 		lblLogin.setFont(new Font("Calibri", Font.PLAIN, 30));
-		lblLogin.setForeground(Color.WHITE);
+		lblLogin.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		
 		// Texto usuario
 		lblUser = new JLabel("Usuario:");
 		lblUser.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblUser.setForeground(ApplicationColor.WHITE.getColor());
+		lblUser.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		
 		// Texto contraseña
 		lblPassword = new JLabel("Contraseña:");
 		lblPassword.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblPassword.setForeground(ApplicationColor.WHITE.getColor());
+		lblPassword.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		
 		// Mensaje error
 		lblErrorMessage = new JLabel();
 		lblErrorMessage.setFont(new Font("Arial", Font.BOLD, 16));
-		lblErrorMessage.setForeground(ApplicationColor.RED.getColor());
+		lblErrorMessage.setForeground(ApplicationColor.ERROR_MESSAGE_COLOR.getColor());
 		
 		setFocusable(true);
 		requestFocus();
@@ -124,12 +126,9 @@ public class Login extends JFrame {
 	}
 
 	public void createAceptButton() {
-		ImageIcon scaledPrimaryAceptButton = new ImageIcon(ApplicationIconImage.ACEPT_PRIMARY_BUTTON.getIcon()
-				.getImage().getScaledInstance(80, 35, Image.SCALE_SMOOTH));
-		ImageIcon scaledSecondaryAceptButton = new ImageIcon(ApplicationIconImage.ACEPT_SECONDARY_BUTTON.getIcon()
-				.getImage().getScaledInstance(80, 35, Image.SCALE_SMOOTH));
-		btAcept = new JLabel(scaledPrimaryAceptButton);
-		btAcept.setDisplayedMnemonic(KeyEvent.VK_ENTER);
+		btAcept = new JButton("Aceptar");
+		btAcept.setBackground(ApplicationColor.BUTTON_BACKGROUND_COLOR.getColor());
+		btAcept.setForeground(ApplicationColor.BUTTON_TEXT_COLOR.getColor());
 		
 		btAcept.addMouseListener(new MouseAdapter() {
 			/*
@@ -138,12 +137,12 @@ public class Login extends JFrame {
 			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btAcept.setIcon(scaledSecondaryAceptButton);
+				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btAcept.setIcon(scaledPrimaryAceptButton);
+				
 			}
 
 			@Override
@@ -159,6 +158,7 @@ public class Login extends JFrame {
 			public void keyPressed(KeyEvent e) {
 				// Acción al pulsar la tecla ENTER
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) checkUserExists();
+				// Acción al pulsar la tecla ESC
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) System.exit(0);;
 			}
 			
@@ -175,15 +175,24 @@ public class Login extends JFrame {
 	}
 	
 	private void checkUserExists() {
-		Database database = new Database(txtUser.getText(), String.valueOf(passUser.getPassword()));
-		StudentWindow student = new StudentWindow();
-
+		LoginDatabase database = new LoginDatabase(txtUser.getText(), String.valueOf(passUser.getPassword()));
+		TeacherWindow teacher;
+		
+		// Comprueba que no hayan espacios en blanco
 		if (!txtUser.getText().isBlank() && !String.valueOf(passUser.getPassword()).isBlank()) {
 			// Checkea si existe usuario y se loguea
 			if (database.isUser()) {
 				// Cierra la ventana y se loguea como usuario
 				if (database.getUserType().equals("alumno")) {
-					student.openWindow();
+					
+					dispose();
+				}
+				else if (database.getUserType().equals("profesor")) {
+					teacher = new TeacherWindow();
+					dispose();
+				}
+				else {
+					
 					dispose();
 				}
 			} else lblErrorMessage.setText("¡Error en el usuario o contraseña!");
@@ -193,11 +202,9 @@ public class Login extends JFrame {
 	}
 
 	private void createCancelButton() {
-		ImageIcon scaledPrimaryCancelButton = new ImageIcon(ApplicationIconImage.CANCEL_PRIMARY_BUTTON.getIcon()
-				.getImage().getScaledInstance(80, 35, Image.SCALE_SMOOTH));
-		ImageIcon scaledSecondaryCancelButton = new ImageIcon(ApplicationIconImage.CANCEL_SECONDARY_BUTTON.getIcon()
-				.getImage().getScaledInstance(80, 35, Image.SCALE_SMOOTH));
-		btCancel = new JLabel(scaledPrimaryCancelButton);
+		btCancel = new JButton("Cancelar");
+		btCancel.setBackground(ApplicationColor.BUTTON_BACKGROUND_COLOR.getColor());
+		btCancel.setForeground(ApplicationColor.BUTTON_TEXT_COLOR.getColor());
 
 		btCancel.addMouseListener(new MouseAdapter() {
 			/*
@@ -206,12 +213,12 @@ public class Login extends JFrame {
 			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btCancel.setIcon(scaledSecondaryCancelButton);
+				;
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btCancel.setIcon(scaledPrimaryCancelButton);
+				
 			}
 
 			@Override
@@ -233,7 +240,7 @@ public class Login extends JFrame {
 		pMain.add(txtUser, "cell 1 1,growx,aligny bottom");
 		pMain.add(lblErrorMessage, "cell 1 3,alignx left,aligny center");
 		pMain.add(btAcept, "cell 2 4,alignx center,aligny center");
-		pMain.add(btCancel, "cell 3 4,growx,aligny center");
+		pMain.add(btCancel, "cell 3 4,alignx center,aligny center");
 	}
 
 }

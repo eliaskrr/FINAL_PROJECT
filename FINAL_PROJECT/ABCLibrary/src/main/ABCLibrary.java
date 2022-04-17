@@ -3,7 +3,8 @@ import login.Login;
 import presentation.ScreenSplash;
 
 /**
- * En esta clase se iniciará el programa
+ * En esta clase se iniciará el programa.
+ * @author Ilyasse Essadak Samaali
  */
 public class ABCLibrary {
 
