@@ -1,4 +1,4 @@
-package presentation;
+package window.presentation;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -43,7 +43,7 @@ public class ScreenSplash extends Thread {
 		frMain.setUndecorated(true);
 		frMain.setLocationRelativeTo(null);
 		// Agrega la imagen a la barra de título
-		frMain.setIconImage(ApplicationIconImage.CROSS_PRIMARY_BUTTON.getIcon().getImage());
+		frMain.setIconImage(ApplicationIconImage.ICON.getIcon().getImage());
 	}
 	
 	private void createPanel() {

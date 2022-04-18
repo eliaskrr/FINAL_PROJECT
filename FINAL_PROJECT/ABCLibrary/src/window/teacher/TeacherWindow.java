@@ -1,4 +1,4 @@
-package teacher_window;
+package window.teacher;
 
 import java.awt.Image;
 

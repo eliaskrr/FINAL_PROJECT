@@ -1,6 +1,5 @@
-package login;
+package window.login;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -10,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import constant.ApplicationColor;
 import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
-import teacher_window.TeacherWindow;
+import window.teacher.TeacherWindow;
 
 /**
  * En esta clase se realizará el logueo del usuario (alumno, profesor o admin)
@@ -29,15 +29,16 @@ import teacher_window.TeacherWindow;
  */
 public class Login extends JFrame {
 	private JPanel pMain;
-	private JTextField txtUser;
+	private JTextField txtUsername;
 	private JPasswordField passUser;
-	private JLabel lblUser;
+	private JLabel lblUsername;
 	private JLabel lblPassword;
 	private JButton btCancel;
 	private JButton btAcept;
 	private JLabel lblIconApp;
 	private JLabel lblLogin;
 	private JLabel lblErrorMessage;
+	private JComboBox cbTypeUser;
 
 	public Login() {
 		initComponents();
@@ -47,6 +48,7 @@ public class Login extends JFrame {
 		createFrame();
 		createPanel();
 		createLabels();
+		createComboBox();
 		createTextFields();
 		createButtons();
 		configureLayout();
@@ -86,9 +88,9 @@ public class Login extends JFrame {
 		lblLogin.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		
 		// Texto usuario
-		lblUser = new JLabel("Usuario:");
-		lblUser.setFont(new Font("Calibri", Font.BOLD, 16));
-		lblUser.setForeground(ApplicationColor.TEXT_COLOR.getColor());
+		lblUsername = new JLabel("Usuario:");
+		lblUsername.setFont(new Font("Calibri", Font.BOLD, 16));
+		lblUsername.setForeground(ApplicationColor.TEXT_COLOR.getColor());
 		
 		// Texto contraseña
 		lblPassword = new JLabel("Contraseña:");
@@ -107,11 +109,11 @@ public class Login extends JFrame {
 
 	private void createTextFields() {
 		// Cuadro de texto usuario
-		txtUser = new JTextField();
-		txtUser.setFocusable(true);
-		txtUser.setFont(new Font("Calibri", Font.PLAIN, 14));
+		txtUsername = new JTextField();
+		txtUsername.setFocusable(true);
+		txtUsername.setFont(new Font("Calibri", Font.PLAIN, 14));
 		// Agrega evento de teclado
-		txtUser.addKeyListener(getKeyListener());
+		txtUsername.addKeyListener(getKeyListener());
 
 		// Cuadro de texto contraseña
 		passUser = new JPasswordField();
@@ -175,19 +177,20 @@ public class Login extends JFrame {
 	}
 	
 	private void checkUserExists() {
-		LoginDatabase database = new LoginDatabase(txtUser.getText(), String.valueOf(passUser.getPassword()));
 		TeacherWindow teacher;
+		String selectedItemComboBox = String.valueOf(cbTypeUser.getSelectedItem());
+		String usarnameText = txtUsername.getText();
+		String passwordText = String.valueOf(passUser.getPassword());
 		
-		// Comprueba que no hayan espacios en blanco
-		if (!txtUser.getText().isBlank() && !String.valueOf(passUser.getPassword()).isBlank()) {
+		// Comprueba que no hayan campos vacíos
+		if (!usarnameText.isBlank() && !passwordText.isBlank()) {
 			// Checkea si existe usuario y se loguea
-			if (database.isUser()) {
 				// Cierra la ventana y se loguea como usuario
-				if (database.getUserType().equals("alumno")) {
+				if (cbTypeUser.getItemAt(0).equals(selectedItemComboBox)) {
 					
 					dispose();
 				}
-				else if (database.getUserType().equals("profesor")) {
+				else if (cbTypeUser.getItemAt(1).equals(selectedItemComboBox)) {
 					teacher = new TeacherWindow();
 					dispose();
 				}
@@ -195,7 +198,6 @@ public class Login extends JFrame {
 					
 					dispose();
 				}
-			} else lblErrorMessage.setText("¡Error en el usuario o contraseña!");
 			
 		}
 		else lblErrorMessage.setText("¡Error al dejar campos vacíos!");
@@ -230,14 +232,21 @@ public class Login extends JFrame {
 	}
 	
 
+	private void createComboBox() {
+		String[] typesUser = {"Alumno", "Profesor", "Administrador"};
+		cbTypeUser = new JComboBox(typesUser);
+		cbTypeUser.setFont(new Font("Calibri", Font.BOLD, 12));
+	}
+	
 	private void configureLayout() {
-		pMain.setLayout(new MigLayout("", "[18.75%][49.13%][19.63%][16.50%]", "[115.00][17.50%][18.25%][74.00][31.50%]"));
+		pMain.setLayout(new MigLayout("", "[18.75%,grow][49.13%][19.63%][16.50%]", "[115.00][17.50%][18.25%][74.00][31.50%]"));
 		pMain.add(lblIconApp, "cell 0 0,alignx center,aligny bottom");
 		pMain.add(lblLogin, "cell 1 0,alignx left,aligny bottom");
-		pMain.add(lblUser, "cell 0 1,alignx center,aligny bottom");
+		pMain.add(lblUsername, "cell 0 1,alignx center,aligny bottom");
 		pMain.add(lblPassword, "cell 0 2,alignx center,aligny bottom");
 		pMain.add(passUser, "cell 1 2,growx,aligny bottom");
-		pMain.add(txtUser, "cell 1 1,growx,aligny bottom");
+		pMain.add(txtUsername, "cell 1 1,growx,aligny bottom");
+		pMain.add(cbTypeUser, "cell 0 3,alignx center");
 		pMain.add(lblErrorMessage, "cell 1 3,alignx left,aligny center");
 		pMain.add(btAcept, "cell 2 4,alignx center,aligny center");
 		pMain.add(btCancel, "cell 3 4,alignx center,aligny center");

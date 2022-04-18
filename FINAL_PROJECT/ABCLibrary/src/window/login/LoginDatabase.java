@@ -1,4 +1,4 @@
-package login;
+package window.login;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
