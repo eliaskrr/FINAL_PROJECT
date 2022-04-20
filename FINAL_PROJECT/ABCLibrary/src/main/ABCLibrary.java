@@ -1,9 +1,9 @@
 package main;
 import javax.swing.UIManager;
 
-import constant.ApplicationColor;
 import window.login.Login;
 import window.login.ScreenSplash;
+import window.teacher.TeacherWindow;
 
 /**
  * En esta clase se iniciará el programa.
@@ -21,10 +21,11 @@ public class ABCLibrary {
 		// Inicia la ventana de presentación (hilo)
 		screenSplash = new ScreenSplash();
 		// Espera a que finalice el hilo
-		screenSplash.join();
+//		screenSplash.join();
 		
 		// Abre la ventana para loguearse
-		login = new Login();
+//		login = new Login();
+		TeacherWindow teacherWindow = new TeacherWindow();
 	}
 		
 }

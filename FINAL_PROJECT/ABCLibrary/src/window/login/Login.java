@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import constant.ApplicationColor;
+import constant.ApplicationDesign;
 import constant.ApplicationIconImage;
-import main.ApplicationDesign;
 import net.miginfocom.swing.MigLayout;
 import window.teacher.TeacherDatabase;
 import window.teacher.TeacherWindow;
@@ -64,11 +64,11 @@ public class Login extends JFrame {
 	}
 	
 	private void createFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(800, 400);
-		setUndecorated(true);
-		setLocationRelativeTo(null);
-		setIconImage(ApplicationIconImage.ICON.getIcon().getImage());
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(800, 400);
+		this.setUndecorated(true);
+		this.setLocationRelativeTo(null);
+		this.setIconImage(ApplicationIconImage.ICON.getIcon().getImage());
 	}
 
 	private void createPanel() {
@@ -76,7 +76,7 @@ public class Login extends JFrame {
 		pMain.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pMain.setBackground(ApplicationColor.BACKGROUND_COLOR.getColor());
 		// Agrega el panel al marco
-		setContentPane(pMain);
+		this.setContentPane(pMain);
 	}
 
 	private void createLabels() {
@@ -105,10 +105,6 @@ public class Login extends JFrame {
 		lblErrorMessage = new JLabel();
 		lblErrorMessage.setFont(new Font("Arial", Font.BOLD, 16));
 		lblErrorMessage.setForeground(ApplicationColor.ERROR_MESSAGE_COLOR.getColor());
-		
-		setFocusable(true);
-		requestFocus();
-
 	}
 
 	private void createTextFields() {
