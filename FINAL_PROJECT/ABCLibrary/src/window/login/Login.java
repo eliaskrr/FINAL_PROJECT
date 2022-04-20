@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 import constant.ApplicationColor;
 import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
+import window.teacher.TeacherDatabase;
 import window.teacher.TeacherWindow;
 
 /**
@@ -177,27 +178,36 @@ public class Login extends JFrame {
 	}
 	
 	private void checkUserExists() {
-		TeacherWindow teacher;
 		String selectedItemComboBox = String.valueOf(cbTypeUser.getSelectedItem());
 		String usarnameText = txtUsername.getText();
 		String passwordText = String.valueOf(passUser.getPassword());
+		TeacherWindow teacherWindow;
+		TeacherDatabase teacherDatabase;
 		
 		// Comprueba que no hayan campos vacíos
 		if (!usarnameText.isBlank() && !passwordText.isBlank()) {
-			// Checkea si existe usuario y se loguea
-				// Cierra la ventana y se loguea como usuario
-				if (cbTypeUser.getItemAt(0).equals(selectedItemComboBox)) {
-					
+			/*
+			 * Según el tipo de usuario elegido en el combo box, comprobará 
+			 * si existe en su respectiva BBDD
+			 */
+			if (cbTypeUser.getItemAt(0).equals(selectedItemComboBox)) {
+
+				dispose();
+			}
+			else if (cbTypeUser.getItemAt(1).equals(selectedItemComboBox)) {
+				teacherDatabase = new TeacherDatabase(usarnameText, passwordText);
+				
+				// Si existe el usuario introducido abre la ventana del profesor
+				if (teacherDatabase.exists()) {
+					teacherWindow = new TeacherWindow();
 					dispose();
 				}
-				else if (cbTypeUser.getItemAt(1).equals(selectedItemComboBox)) {
-					teacher = new TeacherWindow();
-					dispose();
-				}
-				else {
-					
-					dispose();
-				}
+				else lblErrorMessage.setText("¡Error, no existe profesor con ese usuario");
+			}
+			else {
+
+				dispose();
+			}
 			
 		}
 		else lblErrorMessage.setText("¡Error al dejar campos vacíos!");
