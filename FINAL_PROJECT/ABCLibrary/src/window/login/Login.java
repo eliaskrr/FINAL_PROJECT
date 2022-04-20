@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import constant.ApplicationColor;
 import constant.ApplicationIconImage;
+import main.ApplicationDesign;
 import net.miginfocom.swing.MigLayout;
 import window.teacher.TeacherDatabase;
 import window.teacher.TeacherWindow;
@@ -40,6 +41,7 @@ public class Login extends JFrame {
 	private JLabel lblLogin;
 	private JLabel lblErrorMessage;
 	private JComboBox cbTypeUser;
+	private ApplicationDesign appDesign;
 
 	public Login() {
 		initComponents();
@@ -139,15 +141,6 @@ public class Login extends JFrame {
 			 * Usamos los dos primeros métodos para darle sensación
 			 * de botón al label
 			 */
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -220,20 +213,6 @@ public class Login extends JFrame {
 		btCancel.setForeground(ApplicationColor.BUTTON_TEXT_COLOR.getColor());
 
 		btCancel.addMouseListener(new MouseAdapter() {
-			/*
-			 * Usamos los dos primeros métodos para darle sensación
-			 * de botón al label
-			 */
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				;
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				
-			}
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// Cierra el programa
@@ -247,6 +226,7 @@ public class Login extends JFrame {
 		String[] typesUser = {"Alumno", "Profesor", "Administrador"};
 		cbTypeUser = new JComboBox(typesUser);
 		cbTypeUser.setFont(new Font("Calibri", Font.BOLD, 12));
+		appDesign.changeSelectedTextBackgroundColor(cbTypeUser, ApplicationColor.BACKGROUND_COLOR.getColor());
 	}
 	
 	private void configureLayout() {
