@@ -1,5 +1,9 @@
 package constant;
 
+/**
+ * Constantes utilizadas en la BBDD
+ * @author Ilyasse Essadak Samaali
+ */
 public enum Database {
 	USERNAME("root"),
 	PASSWORD("tfg-126ssX"),

@@ -1,6 +1,6 @@
 package main;
 import window.login.Login;
-import window.presentation.ScreenSplash;
+import window.login.ScreenSplash;
 
 /**
  * En esta clase se iniciará el programa.

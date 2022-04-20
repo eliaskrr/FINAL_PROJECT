@@ -57,7 +57,8 @@ public class Login extends JFrame {
 		addKeyListener(getKeyListener());
 		// Muestra el frame
 		setVisible(true);
-		
+		// Establece foco en el componente al abrir la ventana
+		txtUsername.requestFocusInWindow();
 	}
 	
 	private void createFrame() {
@@ -202,7 +203,7 @@ public class Login extends JFrame {
 					teacherWindow = new TeacherWindow();
 					dispose();
 				}
-				else lblErrorMessage.setText("¡Error, no existe profesor con ese usuario");
+				else lblErrorMessage.setText("¡Error, no existe ningún profesor con ese usuario!");
 			}
 			else {
 

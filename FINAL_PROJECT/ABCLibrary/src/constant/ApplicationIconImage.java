@@ -3,8 +3,7 @@ package constant;
 import javax.swing.ImageIcon;
 
 /**
- * Este enum contiene las imágenes que vamos a utilizar en nuestra
- * aplicación.
+ * Constantes de imágenes que vamos a utilizar
  * @author Ilyasse Essadak Samaali
  */
 public enum ApplicationIconImage {

@@ -8,6 +8,10 @@ import java.sql.SQLException;
 
 import constant.Database;
 
+/**
+ * BBDD para acceder a la tabla del profesor 
+ * @author Ilyasse Essadak Samaali
+ */
 public class TeacherDatabase {
 
 	private String userName;

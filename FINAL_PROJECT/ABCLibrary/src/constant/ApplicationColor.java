@@ -3,8 +3,7 @@ package constant;
 import java.awt.Color;
 
 /**
- * Este enum contiene los colores que vamos a 
- * utilizar en nuestra aplicación.
+ * Constantes de colores utilizadas para el diseño
  * @author Ilyasse Essadak Samaali
  */
 public enum ApplicationColor {
