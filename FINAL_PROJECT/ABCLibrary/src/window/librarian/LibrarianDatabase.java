@@ -1,4 +1,4 @@
-package window.teacher;
+package window.librarian;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import constant.Database;
  * BBDD para acceder a la tabla del profesor 
  * @author Ilyasse Essadak Samaali
  */
-public class TeacherDatabase {
+public class LibrarianDatabase {
 
 	private String userName;
 	private String userPassword;
@@ -20,9 +20,9 @@ public class TeacherDatabase {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	
-	public TeacherDatabase() {}
+	public LibrarianDatabase() {}
 	
-	public TeacherDatabase(String userName, String userPassword) {
+	public LibrarianDatabase(String userName, String userPassword) {
 		connection();
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -37,7 +37,7 @@ public class TeacherDatabase {
 					Database.PASSWORD.getString());
 			
 			// Sentencia SQL
-			stmt = con.prepareStatement("SELECT * FROM PROFESOR");
+			stmt = con.prepareStatement("SELECT * FROM BIBLIOTECARIO");
 			// Ejecución sentencia
 			rs = stmt.executeQuery();
 			

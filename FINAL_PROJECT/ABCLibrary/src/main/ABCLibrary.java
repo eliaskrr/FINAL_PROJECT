@@ -3,7 +3,6 @@ import javax.swing.UIManager;
 
 import window.login.Login;
 import window.login.ScreenSplash;
-import window.teacher.TeacherWindow;
 
 /**
  * En esta clase se iniciará el programa.
@@ -19,13 +18,12 @@ public class ABCLibrary {
 		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		
 		// Inicia la ventana de presentación (hilo)
-		screenSplash = new ScreenSplash();
+//		screenSplash = new ScreenSplash();
 		// Espera a que finalice el hilo
 //		screenSplash.join();
 		
 		// Abre la ventana para loguearse
-//		login = new Login();
-		TeacherWindow teacherWindow = new TeacherWindow();
+		login = new Login();
 	}
 		
 }

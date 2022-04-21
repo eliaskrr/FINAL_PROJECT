@@ -21,8 +21,8 @@ import constant.ApplicationColor;
 import constant.ApplicationDesign;
 import constant.ApplicationIconImage;
 import net.miginfocom.swing.MigLayout;
-import window.teacher.TeacherDatabase;
-import window.teacher.TeacherWindow;
+import window.librarian.LibrarianDatabase;
+import window.librarian.LibrarianWindow;
 
 /**
  * En esta clase se realizará el logueo del usuario (alumno, profesor o admin)
@@ -41,7 +41,6 @@ public class Login extends JFrame {
 	private JLabel lblLogin;
 	private JLabel lblErrorMessage;
 	private JComboBox cbTypeUser;
-	private ApplicationDesign appDesign;
 
 	public Login() {
 		initComponents();
@@ -171,8 +170,8 @@ public class Login extends JFrame {
 		String selectedItemComboBox = String.valueOf(cbTypeUser.getSelectedItem());
 		String usarnameText = txtUsername.getText();
 		String passwordText = String.valueOf(passUser.getPassword());
-		TeacherWindow teacherWindow;
-		TeacherDatabase teacherDatabase;
+		LibrarianWindow librarianWindow;
+		LibrarianDatabase librarianDatabase;
 		
 		// Comprueba que no hayan campos vacíos
 		if (!usarnameText.isBlank() && !passwordText.isBlank()) {
@@ -180,22 +179,18 @@ public class Login extends JFrame {
 			 * Según el tipo de usuario elegido en el combo box, comprobará 
 			 * si existe en su respectiva BBDD
 			 */
-			if (cbTypeUser.getItemAt(0).equals(selectedItemComboBox)) {
+			if (cbTypeUser.getItemAt(1).equals(selectedItemComboBox)) {
+				librarianDatabase = new LibrarianDatabase(usarnameText, passwordText);
 
-				dispose();
-			}
-			else if (cbTypeUser.getItemAt(1).equals(selectedItemComboBox)) {
-				teacherDatabase = new TeacherDatabase(usarnameText, passwordText);
-				
-				// Si existe el usuario introducido abre la ventana del profesor
-				if (teacherDatabase.exists()) {
-					teacherWindow = new TeacherWindow();
+				// Si existe el usuario introducido abre la ventana del bibliotecario
+				if (librarianDatabase.exists()) {
+					librarianWindow = new LibrarianWindow();
 					dispose();
 				}
 				else lblErrorMessage.setText("¡Error, no existe ningún profesor con ese usuario!");
 			}
 			else {
-
+				// AGREGAR AQUÍ EL ADMINISTRADOR
 				dispose();
 			}
 			
@@ -219,10 +214,11 @@ public class Login extends JFrame {
 	
 
 	private void createComboBox() {
-		String[] typesUser = {"Alumno", "Profesor", "Administrador"};
+		String[] typesUser = {"Bibliotecario", "Administrador"};
 		cbTypeUser = new JComboBox(typesUser);
 		cbTypeUser.setFont(new Font("Calibri", Font.BOLD, 12));
-		appDesign.changeSelectedTextBackgroundColor(cbTypeUser, ApplicationColor.BACKGROUND_COLOR.getColor());
+		ApplicationDesign.changeSelectedTextBackgroundColor(cbTypeUser, 
+				ApplicationColor.BACKGROUND_COLOR.getColor());
 	}
 	
 	private void configureLayout() {
@@ -233,7 +229,7 @@ public class Login extends JFrame {
 		pMain.add(lblPassword, "cell 0 2,alignx center,aligny bottom");
 		pMain.add(passUser, "cell 1 2,growx,aligny bottom");
 		pMain.add(txtUsername, "cell 1 1,growx,aligny bottom");
-		pMain.add(cbTypeUser, "cell 0 3,alignx center");
+		pMain.add(cbTypeUser, "cell 0 3,alignx center,aligny bottom");
 		pMain.add(lblErrorMessage, "cell 1 3,alignx left,aligny center");
 		pMain.add(btAcept, "cell 2 4,alignx center,aligny center");
 		pMain.add(btCancel, "cell 3 4,alignx center,aligny center");
