@@ -1,6 +1,5 @@
 package main;
-import javax.swing.UIManager;
-
+import constant.ApplicationDesign;
 import window.login.Login;
 import window.login.ScreenSplash;
 
@@ -10,12 +9,12 @@ import window.login.ScreenSplash;
  */
 public class ABCLibrary {
 
-	public static void main(String[] args) throws InterruptedException, Exception {
+	public static void main(String[] args) throws InterruptedException {
 		ScreenSplash screenSplash;
 		Login login;
 		
 		// Agregamos un tema a la app
-		UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		ApplicationDesign.addNewTheme();
 		
 		// Inicia la ventana de presentación (hilo)
 //		screenSplash = new ScreenSplash();
